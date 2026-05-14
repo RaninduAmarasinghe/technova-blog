@@ -1,43 +1,48 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function PostCard() {
+type PostCardProps = {
+  title: string;
+  author: string;
+  slug: string;
+};
+
+export default function PostCard({
+  title,
+  author,
+  slug,
+}: PostCardProps) {
   return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
+    <Link href={`/blog/${slug}`}>
+      <article className="bg-[#111111] border border-gray-800 rounded-3xl p-8 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+        
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+            T
+          </div>
 
-      {/* IMAGE */}
-      <div className="relative w-full h-56">
-        <Image
-          src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop"
-          alt="Post Image"
-          fill
-          className="object-cover"
-        />
-      </div>
+          <div>
+            <p className="text-white font-medium">
+              {author}
+            </p>
 
-      {/* CONTENT */}
-      <div className="p-6">
-
-        <p className="text-blue-600 text-sm font-semibold uppercase tracking-wide">
-          Gadgets
-        </p>
-
-        <h2 className="mt-3 text-2xl font-bold text-gray-900 leading-snug">
-          Top 5 Smartphones Launching in May 2026
-        </h2>
-
-        {/* AUTHOR */}
-        <div className="mt-6 flex items-center gap-3 text-sm text-gray-500">
-
-          <div className="w-8 h-8 rounded-full bg-gray-300"></div>
-
-          <span>Neha Verma</span>
-
-          <span>•</span>
-
-          <span>Apr 20, 2026</span>
+            <p className="text-gray-500 text-sm">
+              TechNova Hub
+            </p>
+          </div>
         </div>
 
-      </div>
-    </div>
+        <h2 className="text-3xl font-bold text-white leading-tight">
+          {title}
+        </h2>
+
+        <p className="text-gray-400 mt-4 leading-7">
+          Read the latest insights and updates from TechNova Hub.
+        </p>
+
+        <div className="mt-6 flex items-center text-blue-500 font-medium">
+          Read Article →
+        </div>
+      </article>
+    </Link>
   );
 }

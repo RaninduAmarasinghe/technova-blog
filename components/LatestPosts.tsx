@@ -1,6 +1,19 @@
 import PostCard from "./PostCard";
+import { client } from "@/sanity/lib/client";
+import { POSTS_QUERY } from "@/sanity/lib/queries";
 
-export default function LatestPosts() {
+type Post = {
+  _id: string;
+  title: string;
+  author: string;
+  slug: {
+    current: string;
+  };
+};
+
+export default async function LatestPosts() {
+  const posts: Post[] = await client.fetch(POSTS_QUERY);
+
   return (
     <section className="max-w-7xl mx-auto px-6 pb-20">
 
@@ -16,14 +29,14 @@ export default function LatestPosts() {
       {/* GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {posts.map((post) => (
+          <PostCard
+            key={post._id}
+            title={post.title}
+            author={post.author}
+            slug={post.slug.current}
+          />
+        ))}
 
       </div>
 
